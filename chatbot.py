@@ -1,4 +1,5 @@
 from transformers import pipeline
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, SystemMessage, ChatMessage
 
 # 1. Load a text-generation model from Hugging Face
 transformers = pipeline(

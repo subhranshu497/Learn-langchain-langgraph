@@ -1,0 +1,17 @@
+{
+    "title": "Student",
+    "type": "object",
+    "description": "A student object representing a student in a school or university.",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The full name of the student."
+        },
+        "age": {
+            "type": "integer",
+            "description": "The age of the student."
+        }
+    },
+    "required": ["name", "age"]
+}
+        
