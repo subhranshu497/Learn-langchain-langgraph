@@ -1,12 +1,20 @@
-from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline
+from langchain_openai import OpenAI
+from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
-llm = HuggingFacePipeline.from_model_id(
-    model_id="google/gemma-3-1b-it",
-    task="text-generation",
-    pipeline_kwargs={
-        "max_length": 100, 
-        "temperature": 0.7}
+load_dotenv()
+
+prompt = PromptTemplate(
+    template="Generat five interesting facts about {topic}.",
+    input_variables=["topic"]   
 )
-model = ChatHuggingFace(llm=llm)
-response = model.invoke("What is the capital of France?")
-print(response.content)
+
+model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.9)
+
+parser = StrOutputParser()
+
+chain = prompt | model | parser
+chain.get_graph().render("chain_graph.png")
+result = chain.invoke({"topic": "space exploration"})
+print(result)
